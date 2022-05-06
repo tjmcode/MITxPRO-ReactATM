@@ -23,8 +23,7 @@
  *      DESCRIPTION:
  *      ------------
  *
- *      This module implements the MicroCODE's Common JavaScript Template.
- *      This file is copied to start all MicroCODE JavaScript code files.
+ *      This module implements the 'Account' component of an REACT ATM App.
  *
  *
  *      REFERENCES:
