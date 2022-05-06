@@ -69,6 +69,9 @@ Contributors names and contact info
 
 ## Version History
 
+* 0.2
+    * Rearranged buttons to show mode on top
+    * Changed styling to use Default Bootstrap Buttons
 * 0.1
     * Refactored into the MicroCODE [MCODE] style and templates.
     * See [commit change]() or See [release history]()
