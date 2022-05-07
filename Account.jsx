@@ -104,13 +104,11 @@
  */
 const Account = () =>
 {
-    //     local store,       function to update,           intial state = $0.00
+    //     local store,       function to update,           intial state
     const [transactionAmount, setTransactionAmount] = React.useState(0);
-
-    //     local store,    function to update,           intial state = $0.00
     const [accountBalance, setAccountBalance] = React.useState(0);
+    const [atmMode, setAtmMode] = React.useState('');
 
-    //     local store,       function to update,              intial state = depositing
     const [isDepositingFunds, setIsDepositingFunds] = React.useState(true);
 
     let status = `Your Account Balance is: $${accountBalance}`;
@@ -132,16 +130,20 @@ const Account = () =>
         event.preventDefault();
     };
 
+    const isValid = (accountBalance > 0) || isDepositingFunds;
+
     // "AtmTransaction" is a CHILD Component of the "Account" Component...
     return (
         <form onSubmit={handleSubmit}>
             <h2 id="total">{status}</h2>
             <br />
+            &nbsp;&nbsp;
             <button className="btn btn-success" onClick={() => setIsDepositingFunds(true)}>Deposit</button>
+            <span>&nbsp;&nbsp;</span>
             <button className="btn btn-warning" onClick={() => setIsDepositingFunds(false)}>Withdraw</button>
             <br />
             <br />
-            <AtmTransaction onChange={handleChange} isDeposit={isDepositingFunds} funds={transactionAmount}></AtmTransaction>
+            <AtmTransaction onChange={handleChange} isDeposit={isDepositingFunds} funds={transactionAmount} isValid={isValid}></AtmTransaction>
         </form>
     );
 };
@@ -154,8 +156,8 @@ const Account = () =>
  *
  * @param {function} onChange a function in the parent component to handle changes to the funds value.
  * @param {boolean} isDeposit a value indicating whether or not this transaction is a deposit.
- * @param {number} finds a value representing teh value of the transaction.
- *
+ * @param {number} funds a value representing the value of the transaction.
+ * @param {boolean} isValid a value indicating whether or not this transaction is allowed.
  * @returns JSX code to render the Account balance.
  *
  * @example
@@ -163,7 +165,7 @@ const Account = () =>
  *      <AtmTransaction onChange={handleChange} isDeposit={isDeposit}></AtmTransaction>
  *
  */
-const AtmTransaction = ({onChange, isDeposit, funds}) =>
+const AtmTransaction = ({onChange, isDeposit, funds, isValid}) =>
 {
     const transactionType = ["Deposit", "Withdraw"];
 
@@ -175,11 +177,14 @@ const AtmTransaction = ({onChange, isDeposit, funds}) =>
     }
 
     return (
-        <label className="label huge">
-            <h3> {transactionType[Number(!isDeposit)]}</h3>
-            <input className="form-control form-control" type="number" width="200" onChange={onChange} value={funds}></input>
-            <input className="btn btn-info" type="submit" width="200" value="Submit"></input>
-        </label>
+        <div id="transaction-data">
+            <label className="label huge">
+                <h3> {transactionType[Number(!isDeposit)]}</h3>
+                <input className="form-control form-control" type="number" width="200" onChange={onChange} value={funds}></input>
+                &nbsp;&nbsp;
+                <input className="btn btn-info" type="submit" width="200" value="Submit" disabled={!isValid}></input>
+            </label>
+        </div>
     );
 };
 
