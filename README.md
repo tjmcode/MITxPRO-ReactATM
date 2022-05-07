@@ -90,8 +90,8 @@ Contributors names and contact info
 
 ## Future Development
 
-* 0.2
-    * Disable withdraws when there are no funds.
+* 0.4
+   * Add User login and access account remotely.
 
 
 ## License
